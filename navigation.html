@@ -71,39 +71,36 @@
 				const latitude = position.coords.latitude
 				const longitude = position.coords.longitude
 
-				if (!map) {
-					// Inicjalizujemy mapę tylko raz
-					map = L.map("map").setView([latitude, longitude], 13)
-					L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-						attribution: "&copy; OpenStreetMap contributors",
-					}).addTo(map)
-				} else {
-					map.setView([latitude, longitude], 13)
+				if (map) {
+					map.remove()
 				}
+
+				map = L.map("map").setView([latitude, longitude], 13)
+				L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+					attribution: "&copy; OpenStreetMap contributors",
+				}).addTo(map)
 
 				L.marker([latitude, longitude]).addTo(map).bindPopup("Twoja lokalizacja").openPopup()
 
-				// Dodanie pinezki Uniwersytetu Ekonomicznego w Krakowie
 				const ueKrakowLat = 50.0709
 				const ueKrakowLng = 19.9553
 				L.marker([ueKrakowLat, ueKrakowLng]).addTo(map).bindPopup("Uniwersytet Ekonomiczny w Krakowie").openPopup()
 			}
 
 			function showError(error) {
+				let errorMessage = "Wystąpił nieznany błąd."
 				switch (error.code) {
 					case error.PERMISSION_DENIED:
-						alert("Użytkownik odmówił zgody na dostęp do lokalizacji.")
+						errorMessage = "Użytkownik odmówił zgody na dostęp do lokalizacji."
 						break
 					case error.POSITION_UNAVAILABLE:
-						alert("Informacje o lokalizacji są niedostępne.")
+						errorMessage = "Informacje o lokalizacji są niedostępne."
 						break
 					case error.TIMEOUT:
-						alert("Przekroczono czas oczekiwania na dane lokalizacyjne.")
-						break
-					case error.UNKNOWN_ERROR:
-						alert("Wystąpił nieznany błąd.")
+						errorMessage = "Przekroczono czas oczekiwania na dane lokalizacyjne."
 						break
 				}
+				alert(errorMessage)
 			}
 		</script>
 	</body>
