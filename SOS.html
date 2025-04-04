@@ -53,12 +53,14 @@
 			</div>
 		</main>
 		<script>
-			const sosButton = document.querySelector("#sos-btn")
-			if (sosButton && navigator.vibrate) {
-				sosButton.addEventListener("click", function () {
-					navigator.vibrate([200, 100, 200, 100, 200, 300, 600, 300, 600, 300, 600, 300, 200, 100, 200, 100, 200])
-				})
-			}
+			document.addEventListener("DOMContentLoaded", function () {
+				const sosButton = document.querySelector("#sos-btn")
+				if (sosButton && navigator.vibrate) {
+					sosButton.addEventListener("click", function () {
+						navigator.vibrate([200, 100, 200, 100, 200, 300, 600, 300, 600, 300, 600, 300, 200, 100, 200, 100, 200])
+					})
+				}
+			})
 		</script>
 	</body>
 </html>
